@@ -1,0 +1,105 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true
+	},
+	"hide-files.files": [],
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#9401bd",
+		"activityBar.background": "#9401bd",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#201900",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#9401bd",
+		"statusBar.background": "#6c018a",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#9401bd",
+		"statusBarItem.remoteBackground": "#6c018a",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#6c018a",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#6c018a99",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#6c018a",
+
+	// Use Biome as default formatter
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+	  "source.fixAll.eslint": "never"
+	},
+
+	// Recommended editor behaviors
+	"files.eol": "\n", // Always LF
+	"files.insertFinalNewline": true,
+	"files.trimTrailingWhitespace": true,
+
+	// Let Biome handle linting instead of ESLint
+	"eslint.enable": false,
+	"biome.enabled": false,
+
+	"prettier.configPath": ".prettierrc",
+
+	// Indent setting
+	"editor.tabSize": 2,
+	"editor.indentSize": "tabSize",
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+
+	"editor.wordWrap": "on",
+
+	"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+	"editor.fontLigatures": true,
+	"editor.allowVariableFontsInAccessibilityMode": true,
+
+	"files.associations": {
+		"**/.env*": "dotenv",
+		"web.config": "xml",
+		"web.local.config": "xml",
+		"**/src/**/*.css": "tailwindcss"
+	},
+
+	"git.autofetchPeriod": 180,
+
+	// Optional: tailor formatting
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"WillLuke.nextjs.addTypesOnSave": true,
+	"WillLuke.nextjs.hasPrompted": true,
+	"sqltools.connections": [
+		{
+			"ssh": "Disabled",
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "localhost",
+			"group": "local",
+			"database": "nextjs_nextauth_db",
+			"username": "tarang",
+			"password": "m00ns00n"
+		}
+	]
+}
