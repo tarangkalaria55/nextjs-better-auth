@@ -4,10 +4,10 @@ import { envHelper } from "./helper";
 
 export const env = createEnv({
   client: {
-    NEXT_PUBLIC_VAR: z.string().optional().or(z.literal("")),
+    NEXT_PUBLIC_BETTER_AUTH_URL: z.string().optional().or(z.literal("")),
   },
   runtimeEnv: {
-    NEXT_PUBLIC_VAR: process.env.NEXT_PUBLIC_VAR,
+    NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
   },
   ...envHelper,
 });

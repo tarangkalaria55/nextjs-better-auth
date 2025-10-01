@@ -1,11 +1,11 @@
 {
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true
-  },
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true
+	},
   "hide-files.files": [],
   "workbench.colorCustomizations": {
 		"activityBar.activeBackground": "#870f94",
@@ -44,7 +44,7 @@
 
   // Let Biome handle linting instead of ESLint
   "eslint.enable": false,
-  "biome.enabled": false,
+  "biome.enabled": true,
   "prettier.enable": false,
 
   "prettier.configPath": ".prettierrc",
