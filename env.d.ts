@@ -9,5 +9,7 @@ declare namespace NodeJS {
 
     readonly BETTER_AUTH_SECRET: string;
     readonly BETTER_AUTH_URL: string;
+
+    readonly ARCJET_API_KEY: string;
   }
 }
