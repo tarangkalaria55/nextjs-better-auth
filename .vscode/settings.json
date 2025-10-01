@@ -8,24 +8,24 @@
   },
   "hide-files.files": [],
   "workbench.colorCustomizations": {
-		"activityBar.activeBackground": "#870f94",
-		"activityBar.background": "#870f94",
-		"activityBar.foreground": "#e7e7e7",
-		"activityBar.inactiveForeground": "#e7e7e799",
-		"activityBarBadge.background": "#1d1a03",
-		"activityBarBadge.foreground": "#e7e7e7",
-		"commandCenter.border": "#e7e7e799",
-		"sash.hoverBorder": "#870f94",
-		"statusBar.background": "#5d0a66",
-		"statusBar.foreground": "#e7e7e7",
-		"statusBarItem.hoverBackground": "#870f94",
-		"statusBarItem.remoteBackground": "#5d0a66",
-		"statusBarItem.remoteForeground": "#e7e7e7",
-		"titleBar.activeBackground": "#5d0a66",
-		"titleBar.activeForeground": "#e7e7e7",
-		"titleBar.inactiveBackground": "#5d0a6699",
-		"titleBar.inactiveForeground": "#e7e7e799"
-	},
+    "activityBar.activeBackground": "#870f94",
+    "activityBar.background": "#870f94",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#1d1a03",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#870f94",
+    "statusBar.background": "#5d0a66",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#870f94",
+    "statusBarItem.remoteBackground": "#5d0a66",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#5d0a66",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#5d0a6699",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
   "peacock.color": "#5d0a66",
 
   // Use Biome as default formatter
@@ -44,7 +44,7 @@
 
   // Let Biome handle linting instead of ESLint
   "eslint.enable": false,
-  "biome.enabled": false,
+  "biome.enabled": true,
   "prettier.enable": false,
 
   "prettier.configPath": ".prettierrc",
