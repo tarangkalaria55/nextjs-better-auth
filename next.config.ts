@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-import "./src/lib/envConfig";
+import "./src/env/envConfig";
 
 const nextConfig: NextConfig = {
   output: "standalone",
