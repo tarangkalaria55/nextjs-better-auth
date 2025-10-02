@@ -1,3 +1,5 @@
+import "@/env/envConfig";
+
 import { findIp } from "@arcjet/ip";
 import arcjet, {
   type BotOptions,
