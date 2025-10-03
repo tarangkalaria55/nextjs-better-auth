@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -27,8 +26,11 @@ const signUpSchema = z.object({
 
 type SignUpForm = z.infer<typeof signUpSchema>;
 
-export default function SignUpTab() {
-  const router = useRouter();
+export default function SignUpTab({
+  openEmailVerificationTab,
+}: {
+  openEmailVerificationTab: (email: string) => void;
+}) {
   const form = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
     defaultValues: { name: "", email: "", password: "" },
@@ -37,7 +39,7 @@ export default function SignUpTab() {
   const { isSubmitting } = form.formState;
 
   const handleSignUp = async (data: SignUpForm) => {
-    await authClient.signUp.email(
+    var res = await authClient.signUp.email(
       {
         name: data.name,
         email: data.email,
@@ -49,11 +51,12 @@ export default function SignUpTab() {
           console.log(error);
           toast.error(error.error.message || "Failed to sign up");
         },
-        onSuccess: () => {
-          router.push("/");
-        },
       },
     );
+
+    if (res.error == null && !res.data.user.emailVerified) {
+      openEmailVerificationTab(res.data.user.email);
+    }
   };
 
   return (
@@ -66,7 +69,7 @@ export default function SignUpTab() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" {...field} />
+                <Input type="text" autoComplete="off" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,7 +82,7 @@ export default function SignUpTab() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" {...field} />
+                <Input type="email" autoComplete="off" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

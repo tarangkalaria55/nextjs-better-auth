@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -25,7 +26,12 @@ const signInSchema = z.object({
 
 type SignInForm = z.infer<typeof signInSchema>;
 
-export default function SignInTab() {
+export default function SignInTab({
+  openEmailVerificationTab,
+}: {
+  openEmailVerificationTab: (email: string) => void;
+}) {
+  const router = useRouter();
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: "", password: "" },
@@ -34,7 +40,7 @@ export default function SignInTab() {
   const { isSubmitting } = form.formState;
 
   const handleSignIn = async (data: SignInForm) => {
-    await authClient.signIn.email(
+    const res = await authClient.signIn.email(
       {
         ...data,
         callbackURL: "/",
@@ -42,13 +48,22 @@ export default function SignInTab() {
       {
         onError: (error) => {
           console.log(error);
+
+          if (error.error.code === "EMAIL_NOT_VERIFIED") {
+            openEmailVerificationTab(data.email);
+          }
+
           toast.error(error.error.message || "Failed to sign up");
         },
         onSuccess: () => {
-          toast.success("Please check your email to verify your email");
+          router.push("/");
         },
       },
     );
+
+    if (res.error == null && !res.data.user.emailVerified) {
+      openEmailVerificationTab(res.data.user.email);
+    }
   };
 
   return (
@@ -61,7 +76,7 @@ export default function SignInTab() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" {...field} />
+                <Input type="email" autoComplete="off" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
