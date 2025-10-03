@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -27,7 +26,6 @@ const signInSchema = z.object({
 type SignInForm = z.infer<typeof signInSchema>;
 
 export default function SignInTab() {
-  const router = useRouter();
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: "", password: "" },
@@ -47,7 +45,7 @@ export default function SignInTab() {
           toast.error(error.error.message || "Failed to sign up");
         },
         onSuccess: () => {
-          router.push("/");
+          toast.success("Please check your email to verify your email");
         },
       },
     );
