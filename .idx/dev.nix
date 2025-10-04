@@ -15,6 +15,7 @@
 		"steoates.autoimport"
 		"formulahendry.auto-complete-tag"
 		"mhutchie.git-graph"
+		"GitHub.copilot-chat"
   ];
   idx.previews = {
     previews = {
