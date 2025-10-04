@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 import { Button } from "@/components/ui/button";
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
@@ -22,31 +23,38 @@ const forgotPasswordSchema = z.object({
 
 type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>;
 
-export default function ForgotPassword({
+export function ForgotPassword({
   openSignInTab,
 }: {
-  openSignInTab: (email: string) => void;
+  openSignInTab: () => void;
 }) {
   const form = useForm<ForgotPasswordForm>({
     resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { email: "" },
+    defaultValues: {
+      email: "",
+    },
   });
 
   const { isSubmitting } = form.formState;
 
-  const handleForgotPassword = async (data: ForgotPasswordForm) => {
+  async function handleForgotPassword(data: ForgotPasswordForm) {
     await authClient.requestPasswordReset(
-      { ...data, redirectTo: "/auth/reset-password" },
+      {
+        ...data,
+        redirectTo: "/auth/reset-password",
+      },
       {
         onError: (error) => {
-          toast(error.error.message || "Failed to send password reset email");
+          toast.error(
+            error.error.message || "Failed to send password reset email",
+          );
         },
         onSuccess: () => {
           toast.success("Password reset email sent");
         },
       },
     );
-  };
+  }
 
   return (
     <Form {...form}>
@@ -55,13 +63,13 @@ export default function ForgotPassword({
         onSubmit={form.handleSubmit(handleForgotPassword)}
       >
         <FormField
-          name="email"
           control={form.control}
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" autoComplete="off" {...field} />
+                <Input type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -69,15 +77,11 @@ export default function ForgotPassword({
         />
 
         <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => openSignInTab(form.getValues("email"))}
-          >
+          <Button type="button" variant="outline" onClick={openSignInTab}>
             Back
           </Button>
           <Button type="submit" disabled={isSubmitting} className="flex-1">
-            <LoadingSwap isLoading={isSubmitting}>Send Rest Email</LoadingSwap>
+            <LoadingSwap isLoading={isSubmitting}>Send Reset Email</LoadingSwap>
           </Button>
         </div>
       </form>

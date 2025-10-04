@@ -40,48 +40,50 @@ export default function ResetPasswordPage() {
 
   const form = useForm<ResetPasswordForm>({
     resolver: zodResolver(resetPasswordSchema),
-    defaultValues: { password: "" },
+    defaultValues: {
+      password: "",
+    },
   });
 
   const { isSubmitting } = form.formState;
 
-  const handleResetPassword = async (data: ResetPasswordForm) => {
-    if (!token) return;
+  async function handleResetPassword(data: ResetPasswordForm) {
+    if (token == null) return;
 
     await authClient.resetPassword(
-      { newPassword: data.password, token },
+      {
+        newPassword: data.password,
+        token,
+      },
       {
         onError: (error) => {
           toast.error(error.error.message || "Failed to reset password");
         },
         onSuccess: () => {
-          toast.success("Password reset successfully", {
-            description: "Redirecting to login...",
+          toast.success("Password reset successful", {
+            description: "Redirection to login...",
           });
-
           setTimeout(() => {
             router.push("/auth/login");
           }, 1000);
         },
       },
     );
-  };
+  }
 
-  if (!token || !!error) {
+  if (token == null || error != null) {
     return (
       <div className="my-6 px-4">
         <Card className="w-full max-w-md mx-auto">
           <CardHeader>
-            <CardTitle className="text-2xl">Invald Reset Link</CardTitle>
+            <CardTitle>Invalid Reset Link</CardTitle>
             <CardDescription>
               The password reset link is invalid or has expired.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button className="w-full" asChild>
-              <Link href="/auth/login" className="text-blue-500">
-                Back to login
-              </Link>
+              <Link href="/auth/login">Back to Login</Link>
             </Button>
           </CardContent>
         </Card>
@@ -102,8 +104,8 @@ export default function ResetPasswordPage() {
               onSubmit={form.handleSubmit(handleResetPassword)}
             >
               <FormField
-                name="password"
                 control={form.control}
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>

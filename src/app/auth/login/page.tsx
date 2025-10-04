@@ -12,20 +12,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authClient } from "@/lib/auth/auth-client";
-import EmailVerificationTab from "./_components/EmailVerificationTab";
-import ForgotPassword from "./_components/ForgotPassword";
-import SignInTab from "./_components/SignInTab";
-import SignUpTab from "./_components/SignUpTab";
-import SocialAuthButton from "./_components/SocialAuthButtons";
+import { EmailVerification } from "./_components/email-verification";
+import { ForgotPassword } from "./_components/forgot-password";
+import { SignInTab } from "./_components/sign-in-tab";
+import { SignUpTab } from "./_components/sign-up-tab";
+import { SocialAuthButtons } from "./_components/social-auth-buttons";
 
-const TAB_LIST = [
-  "signin",
-  "signup",
-  "email-verification",
-  "forgot-password",
-] as const;
-
-type Tab = (typeof TAB_LIST)[number];
+type Tab = "signin" | "signup" | "email-verification" | "forgot-password";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,16 +31,16 @@ export default function LoginPage() {
     });
   }, [router]);
 
-  const openEmailVerificationTab = (email: string) => {
+  function openEmailVerificationTab(email: string) {
     setEmail(email);
     setSelectedTab("email-verification");
-  };
+  }
 
   return (
     <Tabs
       value={selectedTab}
       onValueChange={(t) => setSelectedTab(t as Tab)}
-      className="mx-auto w-full my-6 px-4"
+      className="max-auto w-full my-6 px-4"
     >
       {(selectedTab === "signin" || selectedTab === "signup") && (
         <TabsList>
@@ -55,30 +48,31 @@ export default function LoginPage() {
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
         </TabsList>
       )}
-
       <TabsContent value="signin">
         <Card>
           <CardHeader className="text-2xl font-bold">
             <CardTitle>Sign In</CardTitle>
           </CardHeader>
-
           <CardContent>
-            <SignInTab openEmailVerificationTab={openEmailVerificationTab} />
+            <SignInTab
+              openEmailVerificationTab={openEmailVerificationTab}
+              openForgotPassword={() => setSelectedTab("forgot-password")}
+            />
           </CardContent>
 
           <Separator />
 
           <CardFooter className="grid grid-cols-2 gap-3">
-            <SocialAuthButton />
+            <SocialAuthButtons />
           </CardFooter>
         </Card>
       </TabsContent>
+
       <TabsContent value="signup">
         <Card>
           <CardHeader className="text-2xl font-bold">
             <CardTitle>Sign Up</CardTitle>
           </CardHeader>
-
           <CardContent>
             <SignUpTab openEmailVerificationTab={openEmailVerificationTab} />
           </CardContent>
@@ -86,27 +80,27 @@ export default function LoginPage() {
           <Separator />
 
           <CardFooter className="grid grid-cols-2 gap-3">
-            <SocialAuthButton />
+            <SocialAuthButtons />
           </CardFooter>
         </Card>
       </TabsContent>
+
       <TabsContent value="email-verification">
         <Card>
           <CardHeader className="text-2xl font-bold">
             <CardTitle>Verify Your Email</CardTitle>
           </CardHeader>
-
           <CardContent>
-            <EmailVerificationTab email={email} />
+            <EmailVerification email={email} />
           </CardContent>
         </Card>
       </TabsContent>
+
       <TabsContent value="forgot-password">
         <Card>
           <CardHeader className="text-2xl font-bold">
             <CardTitle>Forgot Password</CardTitle>
           </CardHeader>
-
           <CardContent>
             <ForgotPassword openSignInTab={() => setSelectedTab("signin")} />
           </CardContent>

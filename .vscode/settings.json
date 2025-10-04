@@ -6,7 +6,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
-	"hide-files.files": [],
+  "hide-files.files": [],
   "peacock.color": "#5d0a66",
 
   // Use Biome as default formatter

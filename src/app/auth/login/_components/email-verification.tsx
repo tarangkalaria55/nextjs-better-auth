@@ -2,10 +2,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BetterAuthActionButton } from "@/components/auth/BetterAuthActionButton";
+import { BetterAuthActionButton } from "@/components/auth/better-auth-action-button";
 import { authClient } from "@/lib/auth/auth-client";
 
-export default function EmailVerificationTab({ email }: { email: string }) {
+export function EmailVerification({ email }: { email: string }) {
   const [timeToNextResend, setTimeToNextResend] = useState(30);
   const interval = useRef<NodeJS.Timeout>(undefined);
 

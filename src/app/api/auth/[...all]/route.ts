@@ -1,5 +1,3 @@
-import "@/env/envConfig";
-
 import { findIp } from "@arcjet/ip";
 import arcjet, {
   type BotOptions,
@@ -20,10 +18,13 @@ const aj = arcjet({
   rules: [shield({ mode: "LIVE" })],
 });
 
-const botSettings = { mode: "LIVE", allow: [] } satisfies BotOptions;
+const botSettings = {
+  mode: "LIVE",
+  allow: ["STRIPE_WEBHOOK"],
+} satisfies BotOptions;
 const restrictiveRateLimitSettings = {
   mode: "LIVE",
-  max: 2,
+  max: 10,
   interval: "10m",
 } satisfies SlidingWindowRateLimitOptions<[]>;
 const laxRateLimitSettings = {
@@ -37,7 +38,6 @@ const emailSettings = {
 } satisfies EmailOptions;
 
 const authHandlers = toNextJsHandler(auth);
-
 export const { GET } = authHandlers;
 
 export async function POST(request: Request) {
@@ -48,16 +48,16 @@ export async function POST(request: Request) {
     if (decision.reason.isRateLimit()) {
       return new Response(null, { status: 429 });
     } else if (decision.reason.isEmail()) {
-      let message = "";
+      let message: string = "";
 
       if (decision.reason.emailTypes.includes("INVALID")) {
-        message = "Email address format is invalid";
+        message = "Email address format is invalid.";
       } else if (decision.reason.emailTypes.includes("DISPOSABLE")) {
-        message = "Disposable email addresses are not allowed";
+        message = "Disposable email addresses are not allowed.";
       } else if (decision.reason.emailTypes.includes("NO_MX_RECORDS")) {
-        message = "Email domain is not valid";
+        message = "Email domain is not valid.";
       } else {
-        message = "Invalid email";
+        message = "Invalid email.";
       }
 
       return Response.json({ message }, { status: 400 });
@@ -74,10 +74,7 @@ async function checkArcjet(request: Request) {
   const session = await auth.api.getSession({ headers: request.headers });
   const userIdOrIp = (session?.user.id ?? findIp(request)) || "127.0.0.1";
 
-  const url = new URL(request.url);
-  const pathname = url.pathname;
-
-  if (pathname.startsWith("/api/auth/sign-in")) {
+  if (request.url.endsWith("/auth/sign-up")) {
     if (
       body &&
       typeof body === "object" &&
@@ -92,17 +89,17 @@ async function checkArcjet(request: Request) {
             rateLimit: restrictiveRateLimitSettings,
           }),
         )
-        .protect(request, { email: body.email, userIdOrIp: userIdOrIp });
+        .protect(request, { email: body.email, userIdOrIp });
     } else {
       return aj
         .withRule(detectBot(botSettings))
         .withRule(slidingWindow(restrictiveRateLimitSettings))
-        .protect(request, { userIdOrIp: userIdOrIp });
+        .protect(request, { userIdOrIp });
     }
   }
 
   return aj
     .withRule(detectBot(botSettings))
     .withRule(slidingWindow(laxRateLimitSettings))
-    .protect(request, { userIdOrIp: userIdOrIp });
+    .protect(request, { userIdOrIp });
 }
