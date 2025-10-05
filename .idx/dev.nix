@@ -1,7 +1,7 @@
 {pkgs}: {
   channel = "stable-24.05";
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_22
   ];
   idx.extensions = [
     "biomejs.biome"
@@ -15,7 +15,8 @@
 		"steoates.autoimport"
 		"formulahendry.auto-complete-tag"
 		"mhutchie.git-graph"
-		"GitHub.copilot-chat"
+		"christian-kohler.npm-intellisense"
+		"ms-vscode.vscode-typescript-next"
   ];
   idx.previews = {
     previews = {

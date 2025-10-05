@@ -13,8 +13,9 @@
       "!.next",
       "!dist",
       "!build",
-      "!src/components/ui",
-      "!src/generated"
+      "!src/components/ui/*",
+      "!src/drizzle/migrations/*",
+      "!src/drizzle/schemas/*"
     ]
   },
   "formatter": {
