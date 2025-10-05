@@ -19,6 +19,7 @@
   "dependencies": {
     "@arcjet/ip": "^1.0.0-beta.12",
     "@arcjet/next": "^1.0.0-beta.12",
+    "@better-auth/stripe": "^1.3.26",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.0.2",
     "@next/env": "^15.5.4",
@@ -47,6 +48,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.63.0",
     "sonner": "^2.0.7",
+    "stripe": "^18.5.0",
     "tailwind-merge": "^3.3.1",
     "zod": "^4.1.11"
   },
