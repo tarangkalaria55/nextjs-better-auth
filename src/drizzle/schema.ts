@@ -1,1 +1,1 @@
-export * from "./schemas/new-auth-schema";
+export * from "./schemas/auth-schema";

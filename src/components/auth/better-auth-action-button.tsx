@@ -1,9 +1,11 @@
+"use client";
+
 import type { ComponentProps } from "react";
 import { ActionButton } from "../ui/action-button";
 
 export function BetterAuthActionButton({
   action,
-  successMessage = "",
+  successMessage,
   ...props
 }: Omit<ComponentProps<typeof ActionButton>, "action"> & {
   action: () => Promise<{ error: null | { message?: string } }>;
@@ -14,6 +16,7 @@ export function BetterAuthActionButton({
       {...props}
       action={async () => {
         const res = await action();
+
         if (res.error) {
           return { error: true, message: res.error.message || "Action failed" };
         } else {

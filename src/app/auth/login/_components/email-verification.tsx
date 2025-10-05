@@ -11,18 +11,16 @@ export function EmailVerification({ email }: { email: string }) {
 
   useEffect(() => {
     startEmailVerificationCountdown();
-    return () => {
-      if (interval.current) {
-        clearInterval(interval.current);
-      }
-    };
   }, []);
 
   function startEmailVerificationCountdown(time = 30) {
     setTimeToNextResend(time);
+
+    clearInterval(interval.current);
     interval.current = setInterval(() => {
       setTimeToNextResend((t) => {
         const newT = t - 1;
+
         if (newT <= 0) {
           clearInterval(interval.current);
           return 0;
@@ -34,9 +32,10 @@ export function EmailVerification({ email }: { email: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="text-sm text-muted-foreground mt-2">
-        We send you a verification link. Please check your email
-      </div>
+      <p className="text-sm text-muted-foreground mt-2">
+        We sent you a verification link. Please check your email and click the
+        link to verify your account.
+      </p>
 
       <BetterAuthActionButton
         variant="outline"
@@ -45,12 +44,15 @@ export function EmailVerification({ email }: { email: string }) {
         disabled={timeToNextResend > 0}
         action={() => {
           startEmailVerificationCountdown();
-          return authClient.sendVerificationEmail({ email, callbackURL: "/" });
+          return authClient.sendVerificationEmail({
+            email,
+            callbackURL: "/",
+          });
         }}
       >
         {timeToNextResend > 0
           ? `Resend Email (${timeToNextResend})`
-          : `Resend Email`}
+          : "Resend Email"}
       </BetterAuthActionButton>
     </div>
   );

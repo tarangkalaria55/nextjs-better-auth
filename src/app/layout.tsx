@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ImpersonationIndicator } from "@/components/auth/impersonation-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -24,12 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
         {children}
         <Toaster position="top-left" />
+        <ImpersonationIndicator />
       </body>
     </html>
   );
